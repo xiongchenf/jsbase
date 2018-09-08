@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    // js call apply bind 
+    function call1() {
+        let str = '51234';
+
+        try {
+            console.log(str.sort());
+        } catch (e) {
+            // catch an error: str.sort is not a function
+            console.log(e);
+        }
+
+        let arr = [6, 1, 2, 3, 4];
+
+        try {
+            console.log(arr.sort());
+        } catch (e) {
+            console.log(e);
+        }
+        // native function sort of Array
+        console.log(Array.prototype.sort);
+
+        str = str.split('');
+
+        Array.prototype.sort.call(str);
+
+        console.log(str.join(''));
+    }
+
+    // call1();
+
+    function call2() {
+    	function Person(name) {
+    		this.name = name;
+    	}
+
+    	Person.prototype.sayName = function(name) {
+    		if (name) this.name = name;
+    		console.log(this.name);
+    	}
+
+    	let person = new Person('person');
+
+    	function Man(name) {
+    		this.name = name;
+    	}
+
+    	let me = new Man('bell');
+
+    	person.sayName(); // person
+
+    	person.sayName.call(me); // bell
+
+    	person.sayName.call(me, 'kevin'); // kevin
+
+    }
+
+    call2();
+
+    function apply1() {
+    	
+    }
+
+    </script>
+</body>
+
+</html>
