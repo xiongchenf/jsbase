@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数式编程</title>
+</head>
+<body>
+	<script>
+		let add = x => { return y => { return x + y; } };
+		console.log(add(1)(2));
+	</script>
+</body>
+</html>
