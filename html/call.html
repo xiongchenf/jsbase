@@ -58,17 +58,79 @@
 
     	person.sayName(); // person
 
+    	Person.prototype.sayName.call(me); // bell
+
+    	Person.prototype.sayName.call(me); // kevin
+
     	person.sayName.call(me); // bell
 
     	person.sayName.call(me, 'kevin'); // kevin
 
     }
 
-    call2();
+    // call2();
 
     function apply1() {
-    	
+    	function Person(name) {
+    		this.name = name;
+    	}
+
+    	Person.prototype.sayName = function(name, name1) {
+    		console.log(arguments);
+    		if (name) this.name = name;
+    		if (name1) this.name = name1;
+    		console.log(name);
+    		console.log(name1);
+    		console.log(this.name);
+    	}
+
+    	let person = new Person('person');
+
+    	function Man(name) {
+    		this.name = name;
+    	}
+
+    	let me = new Man('bell');
+
+    	person.sayName(); // person
+
+    	person.sayName.apply(me); // bell
+
+    	person.sayName.apply(me, ['kevin', 'bear']); // kevin
     }
+
+    // apply1();
+
+    function bind() {
+    	function Person(name) {
+    		this.name = name;
+    	}
+
+    	Person.prototype.sayName = function(name, name1) {
+    		if (name) this.name = name;
+    		if (name1) this.name = name1;
+    		console.log(this.name);
+    	}
+
+    	let person = new Person('person');
+
+    	function Man(name) {
+    		this.name = name;
+    	}
+
+    	let me = new Man('bell');
+
+    	person.sayName();
+
+    	person.sayName.bind(me)();
+
+    	person.sayName.bind(me, 'kevin')();
+
+    	person.sayName.bind(me, ['kevin'])();
+
+    }
+
+    bind();
 
     </script>
 </body>
