@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>canvas</title>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script>
+    function myCircle(obj) {
+        if (!obj) return;
+        if (obj && typeof obj === 'string') try {
+            obj = JSON.parse(obj);
+        } catch (e) {
+            console.log(e);
+            return;
+        }
+        this.init(obj);
+    }
+
+    myCircle.prototype.init = function(o) {
+        if (!o.el) {
+            console.error('params "el" is missing.')
+            return;
+        }
+        let container = document.getElementById(o.el);
+        this.cvs = document.createElement('canvas');
+        this.cvs.width = o.width || 750;
+        this.cvs.height = o.height || 1334;
+        this.cvs.style.width = this.cvs.width / 2 + 'px';
+        this.cvs.style.height = this.cvs.height / 2 + 'px';
+        this.ctx = this.cvs.getContext('2d');
+        container.appendChild(this.cvs);
+        this.circleIndex = 0;
+        if (!o.circle) return;
+        this.drawCircle(o.circle);
+        this.lastAngle = 0;
+    }
+
+    myCircle.prototype.arc = function(obj, index) {
+        let percent = obj.num / 10,
+            radius = 80 + 40 * index;
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = '#f1f1f1';
+        this.ctx.arc(this.cvs.width / 2, this.cvs.height / 2, radius, 0, Math.PI * 2);
+        this.ctx.stroke();
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = obj.color;
+        this.ctx.arc(this.cvs.width / 2, this.cvs.height / 2, radius, this.lastAngle, Math.PI * 2 * percent);
+        this.ctx.lineWidth = 40;
+        if (index === -1) {
+            this.ctx.fill();
+        } else {
+            this.ctx.stroke();
+        }
+        this.lastAngle = Math.PI * 2 * percent;
+    }
+
+    myCircle.prototype.drawCircle = function(arr) {
+        this.circleIndex = arr.length - 1;
+        arr = arr.reverse();
+        arr.map((v, i) => {
+            this.arc(v, this.circleIndex - i);
+        });
+        this.arc({
+            num: 10,
+            color: '#ffffff'
+        }, -1);
+    }
+
+    let mc = new myCircle({
+        el: 'container',
+        circle: [{
+                num: 3,
+                color: '#337ab7'
+            },
+            {
+                num: 8,
+                color: '#4cae4c'
+            },
+            {
+                num: 2,
+                color: '#fbbc05'
+            },
+            {
+                num: 9,
+                color: '#d9534f'
+            },
+            {
+                num: 4,
+                color: '#acde4b'
+            }
+        ]
+    });
+    </script>
+</body>
+
+</html>
