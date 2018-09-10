@@ -4,9 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <style>
+    *{margin: 0;padding: 0}
+    body, html {height: 100%}
+        #app {
+            height: 100%
+        }
+    </style>
 </head>
 
 <body>
+    <div id="app">
+        <div id="box"></div>
+    </div>
     <script>
     // js call apply bind 
     function call1() {
@@ -133,6 +143,24 @@
     }
 
     // bind();
+
+
+    function bind2() {
+        let app = document.getElementById('app');
+        function mytouch(e) {
+            let touches = e.touches;
+            if (touches[0]) {
+                this.posX = touches.screenX;
+                this.posY = touches.screenY;
+            } 
+            console.log(this.posX); // app
+        }
+
+        // app.addEventListener('touchstart', mytouch.bind(mytouch), false);
+        app.addEventListener('touchstart', mytouch, false); 
+    }
+
+    bind2();
 
     </script>
 </body>
