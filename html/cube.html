@@ -22,7 +22,14 @@
     <canvas id="canvas" width='400' height='800'></canvas>
     <script>
     let canvas = document.getElementById('canvas'),
-        ctx = canvas.getContext('2d');
+        ctx = canvas.getContext('2d'),
+        curCube = null,
+        time = 0,
+        now = 0,
+        speed = 1000,
+        tables = [],
+        x = 3,
+        y = 0; // maxX = 10, maxY = 20 
 
     function fillBg() {
         ctx.fillStyle = '#000000';
@@ -30,26 +37,37 @@
         ctx.fill();
     }
 
-    fillBg();
 
     function fillCube(cube) {
-        let x = 120,
-            y = 0;
+        let flag = true;
+        if (x < 0) {
+            curCube.map(v => {
+                if (v[0 - x - 1]) {
+                    flag = false;
+                }
+            });
+        }
+        if(!flag) x = 0;
         cube.map((v, i) => {
             let ic = v;
             ic.map((vl, id) => {
                 if (vl) {
-                    ctx.fillStyle = 'red';
-                    ctx.fillRect(x + id * 40, y + i * 40, 40, 40);
-                    ctx.fill();
+                    ctx.fillStyle = '#d9534f';
+                    ctx.fillRect((x + id) * 40, (y + i) * 40, 40, 40);
+                    ctx.stroke();
                 }
             });
         });
+        minx();
+    }
+
+    function clear() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     function randomCube() {
-        let index = Math.round(Math.random * 6);
-        let line = [
+        let index = 2|| Math.round(Math.random() * 7),
+            line = [
                 [0, 0, 0, 0],
                 [1, 1, 1, 1],
                 [0, 0, 0, 0],
@@ -59,15 +77,61 @@
                 [0, 0, 0],
                 [1, 1, 1],
                 [0, 1, 0]
-            ]
+            ],
+            lCube = [
+                [0, 0, 0],
+                [1, 0, 0],
+                [1, 1, 1]
+            ],
+            rectCube = [
+                [1, 1],
+                [1, 1]
+            ],
+            zCube = [
+                [1, 1, 0],
+                [0, 1, 1]
+            ],
+            slCube = [
+                [0, 0, 0],
+                [0, 0, 1],
+                [1, 1, 1]
+            ],
+            szCube = [
+                [0, 1, 1],
+                [1, 1, 0]
+            ];
 
+        switch (index) {
+            case 0:
+                return line;
+                break;
+            case 1:
+                return tCude;
+                break;
+            case 2:
+                return lCube;
+                break;
+            case 3:
+                return rectCube;
+                break;
+            case 4:
+                return zCube;
+                break;
+            case 5:
+                return slCube;
+                break;
+            case 6:
+                return szCube;
+                break;
+            case 7:
+                return line;
+                break;
+        }
         return tCude;
     }
 
-    let curCube = randomCube();
-
     function transCube(cube) {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0, l = cube.length; i < l; i++) {
             for (let j = 0; j < i; j++) {
                 let temp = cube[i][j];
                 cube[i][j] = cube[j][i];
@@ -75,21 +139,121 @@
             }
         }
 
-
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 2; j++) {
-                let temp = cube[i][j];
-                let temp1 = cube[i][2 - j];
-                cube[i][j] = cube[i][2 - j];
-                cube[i][2 - j] = temp;
-            }
+        for (let i = 0, l = cube.length; i < l; i++) {
+            let temp = cube[i];
+            temp = temp.reverse();
+            cube[i] = temp;
         }
 
         return cube;
     }
 
-    fillCube(curCube);
+    function addEvent(elem, event, fn) {
+        if (elem.addEventListener) {
+            elem.addEventListener(event, fn, false);
+        } else if (elem.attachEvent) {
+            elem.attachEvent('on' + event, fn);
+        } else {
+            elem['on' + event] = fn;
+        }
+    }
 
+    function cubeTransform() {
+        clear();
+        fillBg();
+        transCube(curCube);
+        fillCube(curCube);
+    }
+
+    function resetRAF() {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        addEvent(document.body, 'keyup', function(ev) {
+            let e = ev || window.event;
+            var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+            if (keyCode === 38) {
+                cubeTransform();
+            } else if (keyCode === 37) { // left
+                moveX();
+            } else if (keyCode === 39) { // right
+                moveX(1);
+            } else if (keyCode === 40) {
+                cubeDrop();
+            }
+        });
+    }
+
+    function cubeDrop() {
+        now = (new Date()).getTime();
+        if (now - time >= speed) {
+            ++y;
+            clear();
+            fillBg();
+            fillCube(curCube);
+            time = now;
+        }
+        window.requestAnimationFrame(cubeDrop);
+    }
+
+    function moveX(dre) {
+        if (dre) {
+            ++x;
+        } else {
+            let flag = true;
+            if (x <= 0) {
+                curCube.map(v => {
+                    if (v[0 - x]) {
+                        flag = false;
+                    }
+                });
+            }
+            if (flag) {
+                --x;
+            }
+        }
+        clear();
+        fillBg();
+        fillCube(curCube);
+    }
+    // 把cube合并到tables内
+    function minx() {
+        let w = 10,
+            h = 20,
+            table = [];
+            curCube.map((v, i) => {
+                v.map((val, id) => {
+                    tables[y + i][x + id] = val;
+                });
+            });
+            // console.table(tables);
+    } 
+
+    function table() {
+        let w = 10,
+            h = 20,
+            table = [];
+            for(let i = 0; i < h; i++) {
+                table.push([]);
+                table[i] = [];
+                for (let j = 0; j < w; j++) {
+                    table[i][j] = 0;
+                }
+            }
+        tables = table;
+    }
+
+    function init() {
+        table();
+        resetRAF();
+        fillBg();
+        curCube = randomCube();
+        fillCube(curCube);
+        now = (new Date()).getTime();
+        time = (new Date()).getTime();
+        cubeDrop();
+    }
+
+
+    init();
     </script>
 </body>
 
