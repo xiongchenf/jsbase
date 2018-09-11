@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    canvas {
+        display: block;
+        margin: 0 auto;
+    }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width='400' height='800'></canvas>
+    <script>
+    let canvas = document.getElementById('canvas'),
+        ctx = canvas.getContext('2d');
+
+    function fillBg() {
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fill();
+    }
+
+    fillBg();
+
+    function fillCube(cube) {
+        let x = 120,
+            y = 0;
+        cube.map((v, i) => {
+            let ic = v;
+            ic.map((vl, id) => {
+                if (vl) {
+                    ctx.fillStyle = 'red';
+                    ctx.fillRect(x + id * 40, y + i * 40, 40, 40);
+                    ctx.fill();
+                }
+            });
+        });
+    }
+
+    function randomCube() {
+        let index = Math.round(Math.random * 6);
+        let line = [
+                [0, 0, 0, 0],
+                [1, 1, 1, 1],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ],
+            tCude = [
+                [0, 0, 0],
+                [1, 1, 1],
+                [0, 1, 0]
+            ]
+
+        return tCude;
+    }
+
+    let curCube = randomCube();
+
+    function transCube(cube) {
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < i; j++) {
+                let temp = cube[i][j];
+                cube[i][j] = cube[j][i];
+                cube[j][i] = temp;
+            }
+        }
+
+
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 2; j++) {
+                let temp = cube[i][j];
+                let temp1 = cube[i][2 - j];
+                cube[i][j] = cube[i][2 - j];
+                cube[i][2 - j] = temp;
+            }
+        }
+
+        return cube;
+    }
+
+    fillCube(curCube);
+
+    </script>
+</body>
+
+</html>
