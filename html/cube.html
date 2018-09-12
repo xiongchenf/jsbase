@@ -66,7 +66,7 @@
     }
 
     function randomCube() {
-        let index = 2|| Math.round(Math.random() * 7),
+        let index = Math.round(Math.random() * 7),
             line = [
                 [0, 0, 0, 0],
                 [1, 1, 1, 1],
@@ -138,6 +138,7 @@
                 cube[j][i] = temp;
             }
         }
+        console.log(cube)
 
         for (let i = 0, l = cube.length; i < l; i++) {
             let temp = cube[i];
@@ -191,7 +192,7 @@
             fillCube(curCube);
             time = now;
         }
-        window.requestAnimationFrame(cubeDrop);
+        // window.requestAnimationFrame(cubeDrop);
     }
 
     function moveX(dre) {
@@ -247,6 +248,7 @@
         fillBg();
         curCube = randomCube();
         fillCube(curCube);
+        console.table(curCube)
         now = (new Date()).getTime();
         time = (new Date()).getTime();
         cubeDrop();
