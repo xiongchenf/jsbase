@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包的理解</title>
+</head>
+<body>
+	<script>
+		function outer1() {
+			// 闭包的特性1 可以访问自身声明里声明的变量
+			function inner() {
+				let name = 'inner';
+				console.log(name); // inner
+			}
+
+			inner();
+		}
+
+		outer1();
+
+
+		function outer2() {
+			// 闭包特性2: 对全局变量访问
+			let name = 'outer';
+			function inner() {
+				console.log(name); // outer
+			}
+
+			inner();
+		}
+
+		outer2();
+
+		let name = 'global';
+
+		function outer3() {
+			// 闭包特性3： 对外部函数变量的访问
+			function inner() {
+				console.log(name); // global
+			}
+
+			inner();
+		}
+
+		outer3();
+
+		// 闭包应用 once 函数
+
+		let once = (fn) => {
+			let flag = false;
+			return function() {
+				return flag ? undefined : (flag = true, fn.apply(this, arguments));
+			}
+		}
+
+		let payment = once(() => {
+			console.log('pay money.')
+		});
+
+		payment();
+
+	</script>
+</body>
+</html>
