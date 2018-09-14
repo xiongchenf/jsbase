@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>尝试重写js function bind</title>
+</head>
+<body>
+	<script>
+		function bindDefault() {
+			function Fn1(name) {
+				this.name = name;
+				// this.say = () => {
+				// 	console.log(this.name);
+				// }
+			}
+
+			Fn1.prototype.say = function() {
+				console.log(this.name);
+			}
+
+			function Fn2(name) {
+				this.name = name;
+			}
+
+			let f1 = new Fn1('bear');
+
+			f1.say(); // bear
+
+			let f2 = new Fn2('kevin');
+
+			// f2.say(); // not a function
+
+			f1.say.bind(f2)();
+		}
+
+		// bindDefault();
+
+		function bindMine() {
+			Function.prototype.bind = function(o, args) {
+				return () => {
+					this.call(o, args);
+				};
+			}
+
+			function Me(name) {
+				this.name = name;
+			}
+
+			Me.prototype.say = function(name) {
+				if (name) {
+					this.name = name;
+				}
+				console.log(this.name);
+			}
+
+			function You(name) {
+				this.name = name;
+			}
+
+			let me = new Me('bear'),
+				you = new You('xiong');
+				
+			console.log(you);
+			me.say.bind(you)();
+			me.say.bind(you, 'kevin')();
+			me.say.bind(you)();
+			console.log(you);
+		}
+
+		bindMine();
+	</script>
+</body>
+</html>
