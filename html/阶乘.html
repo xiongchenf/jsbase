@@ -14,7 +14,16 @@
 					return obj[args] || (obj[args] = fn(args))
 				}
 			);
-		}	
+		}
+		// 利用闭包优化fb函数
+		let newFb = moz6((n) => {
+			if (n === 0) return 1;
+			if (n === 1) return 1;
+			return newFb(n - 1) + newFb(n - 2);
+		});
+
+		console.log(newFb(40)) // 耗时 2~3ms
+
 		// 利用闭包来缓存结果 es5
 
 		var moz5 = function(fn) {
@@ -40,17 +49,8 @@
 			return fb(n - 1) + fb(n - 2);
 		}
 
-		// 利用闭包优化fb函数
-
-		let newFb = moz6((n) => {
-			if (n === 0) return 1;
-			if (n === 1) return 1;
-			return newFb(n - 1) + newFb(n - 2);
-		});
-
 		let s = (new Date()).getTime();
 		// 斐波那契数列
-		
 		console.log(newFb(40)) // 耗时 2~3ms
 
 		// console.log(fb(40));  // 耗时 1400+ms
