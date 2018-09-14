@@ -61,6 +61,56 @@
 		payment();
 		payment();
 
+		// 对once函数的理解 一
+		let onceCopy = function() {
+			let flag = false;
+
+			function showFlag() {
+				console.log(flag)
+			}
+
+			showFlag();
+		}
+
+		onceCopy();
+
+		// 对once函数的理解 二
+		let onceCopy2 = function() {
+			let flag = false;
+
+			return function() {
+				console.log(flag)
+			}
+		}
+
+		onceCopy2()();
+
+		// 对once函数的理解 三
+		let onceCopy3 = function(fn) {
+			let flag = false;
+			return function() {
+				console.log(flag)
+			}
+		}
+
+		let pay1 = onceCopy3(() => {
+			console.log('pay money.')
+		});
+
+		pay1();
+
+		// 对once函数的理解 四
+		let onceCopy4 = function(fn) {
+			let flag = false;
+			return false ? undefined: ((flag = true), fn.bind(this, arguments))
+		}
+
+		let pay2 = onceCopy4((name) => {
+			console.log('pay money.')
+		});
+
+		pay2();
+
 	</script>
 </body>
 </html>
