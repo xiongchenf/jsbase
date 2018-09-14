@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		// 利用闭包来缓存结果 es6 
+		let moz6 = fn => {
+			let obj = {};
+			return ((args) => obj[args] || obj[args] = fn(args));
+		}	
+		// 利用闭包来缓存结果 es5
+
+		var moz5 = function(fn) {
+			var obj = {};
+			return (
+					function(args) {
+						return obj[args] || obj[args] = fn(args);
+					}
+				)
+		}
+
+		function memoized(num) {
+			if(num === 0) {
+				return 1;
+			}
+
+			return num * memoized(num - 1);
+		}
+	</script>
+</body>
+</html>
