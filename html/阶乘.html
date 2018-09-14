@@ -7,9 +7,13 @@
 <body>
 	<script>
 		// 利用闭包来缓存结果 es6 
-		let moz6 = fn => {
+		let moz6 = (fn) => {
 			let obj = {};
-			return ((args) => obj[args] || obj[args] = fn(args));
+			return (
+				(args) => {
+					return obj[args] || (obj[args] = fn(args))
+				}
+			);
 		}	
 		// 利用闭包来缓存结果 es5
 
@@ -17,11 +21,11 @@
 			var obj = {};
 			return (
 					function(args) {
-						return obj[args] || obj[args] = fn(args);
+						return obj[args] || (obj[args] = fn(args));
 					}
 				)
 		}
-
+		// 普通阶乘
 		function memoized(num) {
 			if(num === 0) {
 				return 1;
@@ -29,6 +33,35 @@
 
 			return num * memoized(num - 1);
 		}
+
+		function fb(n) {
+			if (n === 0) return 1;
+			if (n === 1) return 1;
+			return fb(n - 1) + fb(n - 2);
+		}
+
+		// 利用闭包优化fb函数
+
+		let newFb = moz6((n) => {
+			if (n === 0) return 1;
+			if (n === 1) return 1;
+			return newFb(n - 1) + newFb(n - 2);
+		});
+
+		let s = (new Date()).getTime();
+		// 斐波那契数列
+		
+		console.log(newFb(40)) // 耗时 2~3ms
+
+		// console.log(fb(40));  // 耗时 1400+ms
+		console.log((new Date()).getTime() - s);
+
+		// 利用闭包缓存结果
+		let fastMemo = moz6((n) => {
+			if (n === 0) return 1;
+			return n * fastMemo(n - 1);
+		});
+
 	</script>
 </body>
 </html>
