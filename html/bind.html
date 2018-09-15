@@ -9,9 +9,13 @@
 		function bindDefault() {
 			function Fn1(name) {
 				this.name = name;
-				// this.say = () => {
-				// 	console.log(this.name);
-				// }
+				this.say = function() {
+					console.log(this);
+					console.log(this.name);
+				},
+				this.talk = () => {
+					console.log(this.name);
+				}
 			}
 
 			Fn1.prototype.say = function() {
@@ -25,15 +29,18 @@
 			let f1 = new Fn1('bear');
 
 			f1.say(); // bear
+			f1.talk(); // bear
 
 			let f2 = new Fn2('kevin');
 
 			// f2.say(); // not a function
 
-			f1.say.bind(f2)();
+			f1.say.bind(f2)(); // kevin
+
+			f1.talk.bind(f2)(); // bear  es6 arrow function have no this object.
 		}
 
-		// bindDefault();
+		bindDefault();
 
 		function bindMine() {
 			Function.prototype.bind = function(o, args) {
@@ -59,7 +66,7 @@
 
 			let me = new Me('bear'),
 				you = new You('xiong');
-				
+
 			console.log(you);
 			me.say.bind(you)();
 			me.say.bind(you, 'kevin')();
@@ -67,7 +74,7 @@
 			console.log(you);
 		}
 
-		bindMine();
+		// bindMine();
 	</script>
 </body>
 </html>
