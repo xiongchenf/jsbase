@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    	// 删除数组中每项object的最后一个key
+	    let arr = [
+	        { a: 1, b: 2, c: 3 },
+	        { a: 4, b: 5, c: 6 },
+	        { a: 7, b: 8, c: 9 }
+	    ];
+	    arr.map(v => {
+	    	let key = null
+	    	for(let k in v) {
+	    		key = k;
+	    	}
+	    	delete v[key];
+	    });
+	    console.log(arr)
+    </script>
+</body>
+
+</html>
