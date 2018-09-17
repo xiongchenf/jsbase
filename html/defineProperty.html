@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    function Vue(obj) {
+    	if (!obj) return;
+    	if (obj.data) {
+    		this.$init(obj.data);
+    	}
+    }
+
+    Vue.prototype.$init = function(obj) {
+    	for (let i in obj) {
+    		let o = {};
+    		Object.defineProperty(this, i, {
+    			set: function(val) {
+    				return o[i] = val;
+    			},
+    			get: function() {
+    				return o[i];
+    			}
+    		});
+    	}
+    }
+
+    let vm = new Vue({
+    	data: {
+    		name: 'bear',
+    		age: 18
+    	}
+    });
+
+    console.log(vm);
+    vm.age = 20;
+    console.log(vm.age);
+    vm.age = 30;
+    console.log(vm.age);
+    vm.name = 'bell';
+    console.log(vm.name);
+    </script>
+</body>
+
+</html>
