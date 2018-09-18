@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let name = 'bear',
+		 template = `
+			<div>
+				${name}
+			</div>
+		`,
+		dom = document.createElement('div');
+		dom.innerHTML = template;
+
+		console.log(dom);
+	</script>
+</body>
+</html>

@@ -19,9 +19,11 @@ class Vue {
                 o[i] = obj[i];
             Object.defineProperty(this, i, {
                 set: function(val) {
+                    console.log('set: ' + i + ' = '+ val);
                     return o[i] = val;
                 },
                 get: function() {
+                    console.log('get: ' + i + ' = '+ o[i]);
                     return o[i];
                 }
             });
