@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app"></div>
+	<script src='../DomTree.js'></script>
+	<script>
+		let dom = new DomTree({
+			el: '#app',
+			template: `
+				<div>
+					<div>hahaha</div>
+					<p>Hello World.</p>
+					<ul>
+						<li>1</li>
+						<li>1</li>
+						<li>1</li>
+						<li>1</li>
+						<li>1</li>
+					</ul>
+				</div>
+			`
+		})
+	</script>
+</body>
+</html>
