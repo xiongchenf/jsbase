@@ -7,11 +7,15 @@
 </head>
 
 <body>
+	<div id="app"></div>
     <script>
     function Vue(obj) {
     	if (!obj) return;
     	if (obj.data) {
     		this.$init(obj.data);
+    	}
+    	if (obj.el) {
+    		this.$mount(obj.el);
     	}
     }
 
@@ -29,20 +33,22 @@
     	}
     }
 
+    Vue.prototype.$mount = function(el) {
+    	let dom = document.getElementById(el);
+    	if (!this.$el) {
+    		this.$el = dom;
+    	}
+    }
+
     let vm = new Vue({
+    	el: '#app', // 仅支持Id
     	data: {
     		name: 'bear',
     		age: 18
     	}
     });
 
-    console.log(vm);
-    vm.age = 20;
-    console.log(vm.age);
-    vm.age = 30;
-    console.log(vm.age);
-    vm.name = 'bell';
-    console.log(vm.name);
+
     </script>
 </body>
 
