@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src='../myVue.js'></script>
+</head>
+
+<body>
+	<div id="app">
+        {{name}}   
+    </div>
+    <script>
+        let vm = new Vue({
+        	el: '#app', // 仅支持Id
+        	data: {
+        		name: 'bear',
+        		age: 18
+        	},
+            methods: {
+                setName() {
+                    console.log(this);
+                    this.name = 'bell';
+                }
+            }
+        });
+
+        console.log(vm)
+    </script>
+</body>
+
+</html>
