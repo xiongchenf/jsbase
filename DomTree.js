@@ -34,7 +34,7 @@ DomTree.prototype.$initialTemplate = function(tem) {
 DomTree.prototype.$loop = function(childs, parent) {
 	for (let i = 0, l = childs.length; i < l; i++) {
 		let val = childs[i],
-			childs,
+			childs = new $Dom(parent, ),
 			dom;
 		if (val.children.length > 0) {
 			dom = $Dom(parent, val, val.children);

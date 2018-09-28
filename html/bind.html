@@ -40,7 +40,7 @@
 			f1.talk.bind(f2)(); // bear  es6 arrow function have no this object.
 		}
 
-		bindDefault();
+		// bindDefault();
 
 		function bindMine() {
 			Function.prototype.bind = function(o, args) {
@@ -48,6 +48,12 @@
 					this.call(o, args);
 				};
 			}
+
+			// Function.prototype.bind = (o, args) => {
+			// 	return function() {
+			// 		this.call(o, args);
+			// 	}
+			// }
 
 			function Me(name) {
 				this.name = name;
