@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+			function today() {
+				let date = new Date(),
+				year = date.getFullYear(),
+				month = date.getMonth(),
+				day = date.getDate();
+				return year + '-' + format(month + 1) + '-' + format(day);
+			}
+
+			function format(n) {
+				return String(n)[1] ? n : '0' + n;
+			}
+
+			let day = today();
+
+			console.log(day)
+	</script>
+</body>
+</html>
