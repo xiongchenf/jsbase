@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	let len = 1000;
+			console.log(len) // 1000
+		function Outer() {
+			let len = 10;
+			this.changeLen = function() {
+				let len = 100;
+				console.log(len) // 100
+			};
+
+			this.showLen = function() {
+				console.log(len) // 10
+			}
+		}
+
+		let o = new Outer();
+
+		o.changeLen();
+		o.showLen();
+	</script>
+</body>
+</html>
