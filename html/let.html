@@ -6,7 +6,7 @@
 </head>
 <body>
 	<script>
-	let len = 1000;
+		let len = 1000;
 			console.log(len) // 1000
 		function Outer() {
 			let len = 10;
@@ -24,6 +24,25 @@
 
 		o.changeLen();
 		o.showLen();
+
+
+		function once(fn) {
+			let f = true;
+			return (data) => {
+				return f ? (f = false, fn.apply(this, arguments)): false
+			}
+		}
+
+
+		let pay = once(() => {
+			console.log('pay');
+		})
+
+		pay();
+		pay();
+		pay();
+		
+
 	</script>
 </body>
 </html>
