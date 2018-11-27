@@ -80,6 +80,25 @@
 			console.log(you);
 		}
 
+
+		function Bear(name) {
+			this.name = name;
+		}
+
+		Bear.prototype.sayName = function (...name) {
+			this.name = name;
+			console.log(this.name);
+		}
+
+		Function.prototype.bind = function(object, ...arguments) {
+			return ((a) => {
+				this.apply(object, arguments);
+			});
+		}
+		let bear = new Bear('bear');
+		bear.sayName.call(null, '1');
+		bear.sayName.apply(null, [1,2,3,4]);
+		bear.sayName.bind(null, 'bearl1', 'abc')();
 		// bindMine();
 	</script>
 </body>
