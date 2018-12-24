@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>原型与原型链</title>
+</head>
+
+<body>
+    <script>
+        function Person() {
+
+        }
+
+        Person.fname = 'personFunction'
+
+        Person.prototype.name = 'bear';
+
+        Object.prototype.age = 20;
+
+        let person = new Person();
+
+        console.log(Person); // 原型
+        console.log(Person.name); // 原型的名称
+        console.log(Person.fname); // 原型的私有属性
+        console.log(person);    // 实例
+        console.log(person.name); // 实例的属性 继承于原型
+        console.log(person.age); // 实例的属性 继承于原型，原型上不存在该属性则继续向原型的原型去遍历
+        console.log(person.__proto__.age);
+        console.log(person.__proto__.__proto__.age);
+        Object.prototype.age = 21;
+        console.log(person.age); // 实例的属性 继承于原型，原型上不存在该属性则继续向原型的原型去遍历
+        console.log(person.__proto__.age);
+        console.log(person.__proto__.__proto__.age);
+        console.log(person.prototype); // undefined 实例没有prototype属性
+        console.log(person.__proto__ === Person.prototype); // 实例的__proto__属性等于实例原型的prototype
+        console.log(person.constructor === Person); // 实例的构造方法等于原型
+        console.log(person.__proto__.constructor === Person);// 实例的构造方法等于原型
+        console.log(person.__proto__.constructor === Person.prototype.constructor); // 实例的构造方法等于原型
+        console.log(person.__proto__.__proto__.constructor === Object);
+        console.log(person.__proto__.__proto__.constructor === Object.prototype.constructor);
+        console.log(person.__proto__.__proto__.__proto__ === null);
+        // Person -> Function -> Object -> null
+    </script>
+</body>
+
+</html>
