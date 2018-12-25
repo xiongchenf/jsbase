@@ -26,6 +26,7 @@
         console.log(person);    // 实例
         console.log(person.name); // 实例的属性 继承于原型
         console.log(person.age); // 实例的属性 继承于原型，原型上不存在该属性则继续向原型的原型去遍历
+        console.log(person instanceof Person);
         console.log(person.__proto__.age);
         console.log(person.__proto__.__proto__.age);
         Object.prototype.age = 21;
