@@ -34,7 +34,6 @@
     // console.log(f1)
 
     var value = 1;
-
     var foo = {
       value: 2,
       bar: function () {
@@ -44,6 +43,9 @@
     }
     console.log(foo.bar()); // 2
     console.log((false || foo.bar)()); // 1
+
+
+    console.log(this instanceof Object);
 
     </script>
 </body>
