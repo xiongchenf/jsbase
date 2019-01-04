@@ -23,19 +23,18 @@
     console.log(person.age);
 
     function ObjectFactory() {
-        console.log(arguments)
         var obj = {},
 
         Constructor = [].shift.call(arguments); // 取arguments的第一个参数
 
-        obj.__proto__ = Constructor.prototype;
+        obj.__proto__ = Constructor.prototype; // 对象的__proto__属性 === Constructor.prototype
 
-        var ret = Constructor.apply(obj, arguments);
+        var ret = Constructor.apply(obj, arguments); 
 
-        return typeof ret === 'object' ? ret : obj;
+        return typeof ret === 'object' ? ret : obj; // 如果new Functin return 了一个object则return object.
     }
 
-    let person2 = ObjectFactory(Person,'bear', 18);
+    let person2 = ObjectFactory(Person,'xiong', 20);
     console.log(person2.name)
     console.log(person2.age);
 
