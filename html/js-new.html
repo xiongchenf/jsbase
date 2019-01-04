@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型与原型链</title>
+</head>
+
+<body>
+    <script>
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    Person.prototype.sayName = function() {
+        console.log(this.name)
+    }
+
+
+    let person = new Person('bear', 18);
+
+    console.log(person.name)
+    console.log(person.age);
+
+    function ObjectFactory() {
+        console.log(arguments)
+        var obj = {},
+
+        Constructor = [].shift.call(arguments); // 取arguments的第一个参数
+
+        obj.__proto__ = Constructor.prototype;
+
+        var ret = Constructor.apply(obj, arguments);
+
+        return typeof ret === 'object' ? ret : obj;
+    }
+
+    let person2 = ObjectFactory(Person,'bear', 18);
+    console.log(person2.name)
+    console.log(person2.age);
+
+    </script>
+</body>
+</html>
