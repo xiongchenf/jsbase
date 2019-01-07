@@ -3,49 +3,53 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>原型与原型链</title>
+    <title>作用域</title>
 </head>
 
 <body>
     <script>
-    //     var a = 1;
-    //     function f1() {
-    //         var a = 2;
-    //         f2();
-    //     }
+        // var a = [];
+        // // for(var i = 0; i < 3; i++) {
+        // //     a[i] = function(i) {
+        // //         console.log(i)
+        // //     }
+        // // }
+        // for(var i = 0; i < 3; i++) {
+        //     a[i] = (function(i) {
+        //         return i;
+        //     })(i)
+        // }
 
-    //     function f2() {
-    //         console.log(a);
-    //     }
-    //     f1();
+        // console.log(a);
+        // console.log(a[0]);
 
-    // console.log(f1)
+        // function fun(n,o) {
+        //     console.log(o)
+        //   return {
+        //     fun:function(m){
+        //       return fun(m,n);
+        //     }
+        //   };
+        // }
+        // var a = fun(0);  // undefined
+        // a.fun(1);  // 0 
+        // a.fun(2);  // 0
+        // a.fun(3);  // 0
+        // var b = fun(0).fun(1).fun(2).fun(3); // undefined 0 1 2
+        // var c = fun(0).fun(1);  // undefined 0
+        // c.fun(2); // 1
+        // c.fun(3); // 1
 
-
-    // function f1() {
-    //     console.log(arguments);
-    //     console.log(a);
-    //     a = 1;
-    // }
-
-    // var f1 = 'a';
-
-    
-    // console.log(f1)
-
-    var value = 1;
-    var foo = {
-      value: 2,
-      bar: function () {
-        console.log(this);
-        return this.value;
-      }
-    }
-    console.log(foo.bar()); // 2
-    console.log((false || foo.bar)()); // 1
+        console.log(Object.prototype.constructor === Object);
+        // console.log(Object.prototype.constructor === Object);
+        console.log(Object.__proto__);
 
 
-    console.log(this instanceof Object);
+        let a = [];
+        let b = {};
+
+        console.log(a.__proto__.constructor === Array);
+        console.log(b.__proto__.constructor === Object);
 
     </script>
 </body>
