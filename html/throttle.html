@@ -36,6 +36,8 @@
                 return flag ? (flag = false, fn.apply(this, arguments)): {}
             }
         }
+
+
         function throttle(fn, wait) {
             // 最后一次调用的时间
             let last = 0;
@@ -56,7 +58,54 @@
             }
         }
 
-        const scroll = throttle((e) => {console.log(e)}, 300);
+        function debounce(fn, time) {
+            // 定时器对象
+            let timer = null;
+            return function() {
+                // 当前环境的this
+                let context = this;
+                // 参数
+                let args = arguments;
+                // 清理之前的定时器
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                // 定义定时器
+                timer = setTimeout(function() {
+                    fn.apply(context, args);
+                }, time)
+            }
+        }
+
+        // 优化
+
+        function Throttle(fn, delay) {
+            let last = 0,
+            timer = null;
+            return function() {
+                // 调用函数时的this
+                let context = this;
+                // 函数参数
+                let args = arguments;
+                // 当前时间
+                let now = +new Date();
+                // 如果距离上一次触发的时间小于等待时间
+                if (now - last < delay) {
+                    // 清理定时器
+                    clearTimeout(timer);
+                    timer = setTimeout(function() {
+                        last = now;
+                        fn.apply(context, args)
+                    }, delay)
+                } else { // 等待时间已经超过，立即触发
+                    last = now;
+                    fn.apply(context, args);
+                }
+            }
+        }
+
+        // const scroll = throttle((e) => {console.log(e)}, 300);
+        const scroll = Throttle((e) => {console.log(e)}, 300);
 
         const onceFn = Once(() => { console.log('one') });
 
