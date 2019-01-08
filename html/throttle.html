@@ -29,6 +29,13 @@
         <li>scoll<br/><br/><br/><br/></li>
     </ul>
     <script>
+
+        function Once(fn) {
+            let flag = true;
+            return function() {
+                return flag ? (flag = false, fn.apply(this, arguments)): {}
+            }
+        }
         function throttle(fn, wait) {
             // 最后一次调用的时间
             let last = 0;
@@ -50,6 +57,13 @@
         }
 
         const scroll = throttle((e) => {console.log(e)}, 300);
+
+        const onceFn = Once(() => { console.log('one') });
+
+        onceFn();
+        onceFn();
+        onceFn();
+        onceFn();
 
         // const scroll = () => { console.log(1) }
 
