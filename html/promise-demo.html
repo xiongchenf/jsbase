@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lozy-load</title>
+</head>
+
+<body>
+    <script>
+    	function runAsync(){
+		    var promise = new Promise(function(resolve, reject){
+		        //做一些异步操作
+		        setTimeout(function(){
+		            console.log('执行完成');
+		            resolve('随便什么数据');
+		        }, 2000);
+		    });
+		    return promise;            
+		}
+		runAsync().then(function(data) {
+			console.log(data)
+		})
+    </script>
+</body>
+</html>
