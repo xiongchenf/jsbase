@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let arr = ['a','b','c'];
+		// map的默认方法
+		Array.prototype.map = function(cb) {
+			for(let i = 0, l = this.length; i < l; i++) {
+				cb(i, this[i])
+			}
+		}
+
+		arr.map((v, i) => {
+			console.log(v)
+			console.log(i)
+		})
+
+	</script>
+</body>
+</html>
