@@ -19,6 +19,33 @@
 			console.log(i)
 		})
 
+		Function.prototype.bind = function(ctx) {
+			let that = this;
+			let args = arguments;
+			return function() {
+				that.apply(ctx, args);
+			}
+		}
+
+		let a = {
+			name: 'a'
+		}
+
+		function Foo() {
+			this.name = 'foo';
+		}
+
+		Foo.prototype.sayName = function(a, b) {
+			console.log(a);
+			console.log(b);
+			console.log(this.name);
+		}
+
+		let foo = new Foo();
+
+		foo.sayName.bind(a, {name: 'newFoo'})();
+
+
 	</script>
 </body>
 </html>
