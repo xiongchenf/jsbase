@@ -8,20 +8,17 @@
 	<script>
 
 		function LogWord(word) {
+			let delay = Math.random() * 100 + 1;
 			return new Promise(function(resolve, reject) {
 				setTimeout(function() {
-					console.log(word);
+					console.log(word, delay);
 					resolve();
-				}, Math.random() * 100 + 1);
+				}, delay);
 			});
 		}
 		LogWord('a')
-		.then(function() {
-			return LogWord('b')
-		})
-		.then(function() {
-			return LogWord('c');
-		});
+		.then(() => LogWord('b'))
+		.then(() => LogWord('c'))
 	</script>
 </body>
 </html>
