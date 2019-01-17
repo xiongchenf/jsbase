@@ -5,13 +5,21 @@
 	<title>Document</title>
 </head>
 <body>
-	<script>
+	<script>	
+		'use strict'
+		var a = 1;
 		function Person() {
 
-			return {} // If Person return an Object value.
+			this.a = 2;
+
+			return this // If Person return an Object value.
 		}
 
 		let person = new Person();
+
+		console.log(this);
+		console.log(this.a);
+		console.log(a);
 		console.log(person.__proto__ === Person.prototype); //  false
 		console.log(Person.prototype === Person.prototype.constructor.prototype); // true
 		console.log(Person.prototype.constructor.prototype === person.__proto__); // false
