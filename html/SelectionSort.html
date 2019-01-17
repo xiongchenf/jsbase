@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SelectionSort.html -- 选择排序</title>
+</head>
+<body>
+	<script>
+		let arr = [1,2,5,8,9,2,4,7];
+
+		function selectionSort(arr) {
+		    let l = arr.length;
+		    let minIndex, temp;
+		    for (let i = 0; i < l - 1; i++) {
+		        minIndex = i;
+		        for (let j = i + 1; j < l; j++) {
+		            if (arr[j] < arr[minIndex]) {     //寻找最小的数
+		                minIndex = j;                 //将最小数的索引保存
+		            }
+		        }
+		        temp = arr[i];
+		        arr[i] = arr[minIndex];
+		        arr[minIndex] = temp;
+		    }
+		    return arr;
+		}
+	</script>
+</body>
+</html>
