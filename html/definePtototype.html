@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>definePtototype</title>
+</head>
+<body>
+	<script>
+		if (typeof Object.assign2 !== Function) {
+			Object.defineProperty(Object, 'assign2', {
+				value: function(target) {
+					'use strict';
+					if (target === null) { // Attention 2
+						throw new TypeError('Cannot convert undefined or null to object');
+					}
+					// Attention 3
+					let tar = Object(target);
+					for (let i = 1, l = arguments.length; i < l; i++) {
+						var next = arguments[i];
+						if (next !== null) {  // Attention 2
+							// Attention 4
+							for (let key in next) {
+								if (Object.prototype.hasOwnProperty.call(next, key)) {
+									tar[key] = next[key];
+								}
+							}
+						}
+					}
+					return tar;
+				},
+				writable: true,
+    			configurable: true
+			});
+		}
+
+		console.log(Object.assign2);
+
+	</script>
+</body>
+</html>
