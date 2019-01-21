@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Object.toString.html</title>
+</head>
+<body>
+	<script>
+		'use strict';
+
+		function isObject(x) {
+			// console.log(Object.prototype.toString.call(x));
+			// console.log(String.prototype);
+			// console.log(Number.prototype);
+			// console.log(Boolean.prototype);
+			return Object.prototype.toString.call(x) === '[object Object]';
+		}
+
+		console.log(isObject({a: 1}));
+		console.log(isObject(null));
+		console.log(isObject({}));
+		console.log(isObject([1,2]));
+	</script>
+</body>
+</html>
