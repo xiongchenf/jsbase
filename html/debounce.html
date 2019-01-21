@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>防抖--debounce.html</title>
+</head>
+<body>
+	<script>
+		function debounce(delay) {
+			let timer = null;
+			let args = arguments;
+			return function() {
+				if (timer) {
+					clearTimeout(timer)
+				}
+				timer = setTimeout(function() {
+					
+				}, delay)
+			}
+		}
+	</script>
+</body>
+</html>
