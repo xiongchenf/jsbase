@@ -3,13 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>lozy-load</title>
+    <style>
+		* {margin: 0;padding: 0;}
+		img {
+			display: block;
+			width: 200px;
+			height: 200px;
+			margin: 0 0 10px;
+		}
+    </style>
 </head>
 
 <body>
     <div id="root">
-        <img data-src="../images/bg0.jpg" alt="">
+        <img data-src="../images/b0.jpg" alt="">
+        <img data-src="../images/b0.jpg" alt="">
+        <img data-src="../images/b2.jpg" alt="">
+        <img data-src="../images/b3.jpg" alt="">
+        <img data-src="../images/b4.jpg" alt="">
+        <img data-src="../images/b5.jpg" alt="">
+        <img data-src="../images/b1.jpg" alt="">
+        <img data-src="../images/b2.jpg" alt="">
+        <img data-src="../images/b3.jpg" alt="">
+        <img data-src="../images/b4.jpg" alt="">
+        <img data-src="../images/b5.jpg" alt="">
+        <img data-src="../images/b1.jpg" alt="">
+        <img data-src="../images/b2.jpg" alt="">
+        <img data-src="../images/b3.jpg" alt="">
+        <img data-src="../images/b4.jpg" alt="">
+        <img data-src="../images/b5.jpg" alt="">
     </div>
     <script>
+    	// 视口高度
+    	const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+    	// 图片对象
+    	const imgs = document.querySelectorAll('img');
+
+		let num = 0;
+		function lazyload() {
+			for (let i = num, l = imgs.length; i < l; i++) {
+				let distence = viewHeight - imgs[i].getBoundingClientRect().top;
+				if (distence > 0) {
+					imgs[i].src = imgs[i].getAttribute('data-src');
+					num = i + 1;
+				}
+			}
+		}
+		// 节流
+		function throttle(fn, delay) {
+			let last = 0, 
+				timer = null;
+			return function() {
+				let that = this;
+				let args = arguments;
+				let now = +new Date();
+				if (now - last < delay) {
+					clearTimeout(timer);
+					timer = setTimeout(function() {
+						last = now;
+						fn.apply(that, args);
+					}, delay)
+				} else {
+					last = now;
+					fn.apply(that, args);
+				}
+			}
+		}
+
+		lazyload();
+
+		window.addEventListener('scroll', throttle(() => { lazyload() }, 300), false);
 
     </script>
 </body>
