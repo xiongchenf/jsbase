@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		/*
+		1. 一个带有“占位符”的 url，形如 https://www.aliyun.com/{commodity}/{type}?region={region} 2. 存放要放入“占位符”中的值的对象，形如 { commodity: 'oss', type: 'resource', region: 'hangzhou' } 输出为： 将占位符替换后的 url。如果在对象中没有找到占位符对应的值，将占位符原样返回 例如： 1. 输入 https://www.aliyun.com/{commodity}/{type}?region={region} 和 { commodity: 'oss', type: 'resource', region: 'hangzhou' }，输出为 https://www.aliyun.com/oss/resource?region=hangzhou 2. 输入 https://www.aliyun.com/{commodity}/{type}?region={region} 和 { commodity: 'oss', type: 'resource'}，输出为 https://www.aliyun.com/oss/resource?region={region}
+		*/
+
+		function dealURL(url, params) {
+			let temp = '';
+			for (let k in params) {
+				let reg = `{${k}}`;
+				url = url.replace(reg, params[k])
+			}
+			return url;
+		}
+		console.log(dealURL('https://www.aliyun.com/{commodity}/{type}?region={region}', { commodity: 'oss', type: 'resource', region: 'hangzhou' }));
+
+		console.log(dealURL('https://www.aliyun.com/{commodity}/{type}?region={region}', { commodity: 'oss', type: 'resource'}));
+	</script>
+</body>
+</html>
