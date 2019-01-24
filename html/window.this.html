@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		// var a = 'global';
+		let a = 'global';
+
+		function foo() {
+			// a = 'local';
+			// console.log(this)
+			this.a = 'local';
+		}
+
+		foo();
+
+		console.log(a);
+
+
+		function Parse(arr) {
+			const star = arr.filter(item => item === '*');
+			const other = arr.filter(item => item !== '*');
+			return [...star, ...other];
+		}
+
+		console.log(Parse(['*',1,2,4,'*',5, '*', 5]));
+	</script>
+</body>
+</html>
