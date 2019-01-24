@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	body, html {
+		height: 100%;
+		overflow: hidden;
+	}
+		#backTop {
+			position: fixed;
+			right: 5%;
+			bottom: 5%;
+			background: #f1f1f1;
+			display: none;
+		}
+		#backTop.show {
+			display: block;
+		}
+
+		#content {
+			width: 90%;
+			height: 90%;
+			overflow: hidden;
+			margin: 5% 5%;
+			background: #ccc;
+		}
+
+		#wraper {
+			height: 100%;
+			overflow: auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="content">
+		<div id="wraper">
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<p>aaaaaa</p><br><br><br>
+			<a href="#" id='backTop'>返回顶部</a>
+		</div>
+	</div>
+
+	<script>
+		(function() {
+			let backTop = document.getElementById('backTop'),
+			content = document.getElementById('content'),
+			wraper = document.getElementById('wraper'),
+			scrollTop = 0,
+			windowHeight = content.innerHeight || content.clientHeight;
+			let scroll = Throttle((e) => {
+				scrollTop = wraper.scrollTop;
+				if (scrollTop >= windowHeight) {
+					backTop.classList.add('show');
+				} else {
+					backTop.classList.remove('show');
+				}
+			}, 300);
+			wraper.addEventListener('scroll', scroll);
+		})();
+
+		function Throttle(fn, delay) {
+			var last = 0,
+				timer = null;
+			return function() {
+				var context = this,
+				args = arguments,
+				now = +new Date();
+				if (now - last < delay) {
+					clearTimeout(timer)
+					timer = setTimeout(function() {
+						last = now;
+						fn.apply(context, args);
+					}, delay)
+				} else {
+					last = now;
+					fn.apply(context, args);
+				}
+			}
+		}
+	</script>
+</body>
+</html>
