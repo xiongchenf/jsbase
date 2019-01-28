@@ -6,15 +6,16 @@
 </head>
 <body>
 	<script>
-		function debounce(delay) {
+		function debounce(fn, delay) {
 			let timer = null;
 			let args = arguments;
 			return function() {
+				let that = this;
 				if (timer) {
 					clearTimeout(timer)
 				}
 				timer = setTimeout(function() {
-					
+					fn.apply()
 				}, delay)
 			}
 		}
