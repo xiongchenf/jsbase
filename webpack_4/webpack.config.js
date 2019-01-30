@@ -8,20 +8,19 @@ module.exports = {
     entry: './src/index.js',
     // 输出
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js'
     },
     // loader
     module: {
         rules: [
             {
-                test: /\.jsx?/,
+                test: /\.(jsx|js)?/,
                 include: [
                     path.resolve(__dirname, 'src')
                 ],
                 use: 'babel-loader'
             },
-
             {
                 test: /\.css$/,
                 include: [
@@ -31,7 +30,13 @@ module.exports = {
                     fallback: 'style-loader',
                     use: 'css-loader',
                 }),
-              }
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    'file-loader'
+                ]
+             }
         ]
     },
     // 代码模块路径解析的配置
@@ -47,9 +52,8 @@ module.exports = {
     plugins: [
         new UglifyPlugin(),
         new HtmlWebpackPlugin({
-            filename: 'index.html', // 配置输出文件名和路径
+            filename: 'dist/index.html', // 配置输出文件名和路径
             template: 'assets/index.html', // 配置文件模板
-          }),
-          new ExtractTextPlugin('index.css')
+          })
     ]
 }
