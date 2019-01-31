@@ -7,31 +7,37 @@
 <body>
 	<script>
 		function Foo(){
-		    getName = function(){
-		        console.log(1)
-		    }
-		    return this;
+		    // getName = function(){
+		    //     console.log(1)
+		    // }
+		    // return this;
 		}
-		Foo.getName = function(){
-		    console.log(2)
-		}
+
+		// Foo.getName = function(){
+		//     console.log(2)
+		// }
 		Foo.prototype.getName = function(){
 		    console.log(3)
 		}
-		var getName = function(){
-		    console.log(4)
-		}
-		function getName(){
-		    console.log(5)
-		}
-		// pls ouput the results:
-		Foo.getName(); // 2
-		getName(); // 4
-		Foo().getName(); // 1
-		getName(); // 1
-		new Foo.getName(); // 2
-		new Foo().getName(); // 3
-		new new Foo().getName(); // 3 
+		// var getName = function(){
+		//     console.log(4)
+		// }
+		// function getName(){
+		//     console.log(5)
+		// }
+		// // pls ouput the results:
+		// Foo.getName(); // 2
+		// getName(); // 4
+		// Foo().getName(); // 1
+		// getName(); // 1
+		// console.log(Foo.getName);
+		// console.log(new Foo().getName());
+		// new Foo.getName(); // 2
+		// new Foo().getName(); // 3
+		// new new Foo().getName(); // 3 
+
+		console.log(typeof (new Foo().getName));
+		console.log((new new Foo().getName()).constructor);
 	</script>
 </body>
 </html>

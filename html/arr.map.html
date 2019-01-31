@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let arr = ['1','2','3'];
+
+		console.log(arr.map(parseInt)) // [1,NaN,NaN]
+
+		let rst = arr.map((val, index) => {
+			return parseInt(val, 10);
+		});
+
+		console.log(rst); // [1, NaN, NaN]
+	</script>
+</body>
+</html>
