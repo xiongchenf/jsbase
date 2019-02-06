@@ -99,10 +99,9 @@ let ArrayList = (function() {
 
 		let quick = (list, left, right) => {
 			let index = 0;
-			if(list.length > 1) {
-				
+			if(list.length === 1) {
+				return list;
 			}
-
 		}
 	}
 })();
