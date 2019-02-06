@@ -6,7 +6,34 @@
 </head>
 <body>
 	<script>
-		
+		 const linkedList = function() { // 链表
+		 	this.head = {
+		 		parent: null,
+		 		next: null,
+		 		value: ''
+		 	}
+		 }
+
+		 linkedList.prototype.tail = function(obj) {
+		 	if (obj.next) {
+		 		this.tail(obj.next)
+		 	} else {
+		 		return obj;
+		 	}
+		 }
+
+		 linkedList.prototype.add = function(val) {
+		 	const tail = this.tail(this.head);
+		 	let obj = {
+		 		value: val,
+		 		next: null,
+		 		parent: tail
+		 	}
+		 }
+
+		 linkedList.prototype.del = function() {
+		 	
+		 }
 	</script>
 </body>
 </html>
