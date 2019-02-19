@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		/**
+		 * @param {string} s
+		 * @return {boolean}
+		 */
+		var validPalindrome = function(s) {
+		    if (s.length === 1) return true;
+		    let len = s.length,
+		        arr = s.split(''),
+		        middle = Math.round(len / 2);
+		        for (let i = 0; i < middle; i++) {
+		        	let head = arr[0],
+		        		tail = arr[arr.length - 1];
+		        		if (head !== tail) {
+		        			break;
+		        		}
+		        		arr.pop();
+		        		arr.shift();
+		        }
+		        for (let i = 0; i < middle; i++) {
+		        	let head = arr[0],
+		        		tail = arr[arr.length - 1];
+		        		if (head !== tail) {
+		        			break;
+		        		}
+		        		arr.pop();
+		        		arr.shift();
+		        }
+		    return status
+		};
+
+		console.log(validPalindrome('abca'));
+	</script>
+</body>
+</html>
