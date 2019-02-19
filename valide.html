@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		/**
+ * @param {number[]} p1
+ * @param {number[]} p2
+ * @param {number[]} p3
+ * @param {number[]} p4
+ * @return {boolean}
+ */
+var validSquare = function(p1, p2, p3, p4) {
+    let dist = function(p1, p2) {
+        return Math.sqrt(Math.pow((p2[1] - p1[1]), 2) + Math.pow((p2[0] - p1[0]), 2))
+    }
+    let arr = [dist(p1, p2),
+        dist(p2, p3),
+        dist(p3, p4),
+        dist(p1, p4),
+        dist(p2, p4),
+        dist(p1, p3)],
+        dists = [],
+        c = 0;
+        arr.map(v => {
+        	if (dists.length === 0) {
+    			dists.push({
+    				val: v,
+    				count: 1
+    			});
+    		} else {
+    			let flag = false,
+    			cur = dists[dists.length - 1];
+    			dists.map(val => {
+    				if (v === val.val) {
+    					flag = true;
+    					cur = val;
+    				}
+    			});
+    			if (flag) {
+    				cur.count++;
+    			} else {
+    				dists.push({
+    					val: v,
+    					count: 1
+    				})
+    			}
+    		}
+        });
+        dists.sort((a, b) => {
+        	return b.count - a.count;
+        });
+
+        return dists[0].count === 4 && dists[1].count === 2 && dists[1].val > dists[0].val;
+        
+};
+		let p1 = [0,0],p2=[1,1],p3=[0,1],p4=[1,0];
+		// [0,0]
+		// [1,1]
+		// [0,0]
+		// [0,0]
+		console.log(validSquare(p1,p2,p3,p4));
+
+	</script>
+</body>
+</html>
