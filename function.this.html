@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Foo() {
+			this.name = 'foo';
+			this.has = el => {
+				return this.hasOwnProperty(el);
+			}
+			return this;
+		}
+
+		// console.log(Foo().name);
+		let foo = new Foo();
+		console.log(foo);
+		console.log(foo.has('name'));
+		console.log(this.name);
+		console.log(this.has);
+		console.log(this);
+		console.log(name);
+
+		function f1() {
+			setTimeout(() => {
+				console.log('f1');
+			}, Math.round(Math.random() * 500));
+		}
+
+		function f2() {
+			setTimeout(() => {
+				console.log('f2');
+			}, Math.round(Math.random() * 500));
+		}
+
+		function f3() {
+			setTimeout(() => {
+				console.log('f3');
+			}, Math.round(Math.random() * 500));
+		}
+
+		// f1();
+		// f2();
+		// f3();
+
+		new Promise(function(resolve, reject) {
+			resolve();
+			return f1(resolve);
+		})
+		.then(function(resolve) {
+			console.log(resolve)
+			return f2(resolve)
+		})
+		.then(function(resolve) {
+			resolve();
+			return f3(resolve)
+		})
+	</script>
+</body>
+</html>
