@@ -65,7 +65,7 @@
 		this.indexOf = el => {
 			let cur = head, res = null, index = 0;
 			while(cur) {
-				if cur.el === el) {
+				if (cur.el === el) {
 					return index;
 				}
 				index++;
