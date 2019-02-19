@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		/**
+		 * @param {number[]} nums
+		 * @return {number}
+		 */
+		var thirdMax = function(nums) {
+		    let arr = Array.from(new Set(nums));
+		    debugger
+		    arr = arr.sort((a, b) => {
+		        return b - a;
+		    });
+		    return arr[2] !== null ? arr[2] : arr[0];
+		};
+
+		console.log(thirdMax([3,3,4,3,4,3,0,3,3]));
+	</script>
+</body>
+</html>
