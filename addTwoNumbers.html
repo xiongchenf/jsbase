@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<p>
+		给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。<br>
+		如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。<br>
+		您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+	</p>	
+	<script>
+		let arr1 = 
+[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+			arr2 = [5,6,4]; // 235 + 124
+		function ListNode(val) {
+	    	this.val = val;
+	    	this.next = null;
+	  	}
+
+	  	function List(arr, pre) {
+	  		let node = new ListNode(arr[0]);
+	  		arr.shift();
+	  		if (pre) {
+	  			pre.next = node;
+	  		}
+	  		if (arr.length > 0) {
+	  			List(arr, node);
+	  		}
+	  		return node;
+	  	}
+
+	  	let num1 = List(arr1);
+	  	let num2 = List(arr2);
+
+/*--------------------------准备工作完结--------------------------*/
+
+	  	var addTwoNumbers = function(l1, l2) {
+		    let a1 = [],
+		        a2 = [];
+		    let toNum = (pre, arr) => {
+		        if (!pre) return;
+		        if (pre.val != undefined) {
+		            arr.push(pre.val)
+		        }
+		        if (pre.next) {
+		            toNum(pre.next, arr)
+		        }
+		    }
+		    let List = (arr, pre) => {
+		  		let node = new ListNode(arr[0]);
+		  		arr.shift();
+		  		if (pre) {
+		  			pre.next = node;
+		  		}
+		  		if (arr.length > 0) {
+		  			List(arr, node);
+		  		}
+		  		return node;
+		  	}
+		    toNum(l1, a1);
+		    toNum(l2, a2);
+		    let res1 = Number(a1.reverse().join('')),
+		    	res2 = Number(a2.reverse().join('')),
+		    	result = res1 + res2;
+		    	console.log(res1);
+		    	console.log(res2);
+		    	console.log(result);
+		    let arr = String(result).split('').reverse();
+		    let head = List(arr);
+		    return head;
+		};
+
+		console.log(addTwoNumbers(num1, num2));
+
+	</script>
+</body>
+</html>
