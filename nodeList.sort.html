@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	function ListNode(val) {
+    	this.val = val;
+    	this.next = null;
+  	}
+
+  	let head = new ListNode(1),
+  	arr = [];
+
+  	function List(pre) {
+  		let node = new ListNode(arr[0]);
+  		debugger
+  		arr.shift();
+  		pre.next = node;
+  		if (arr.length > 0) {
+  			List(node);
+  		}
+  	}
+  	List(head);
+  	// let node = new ListNode(arr[0]);
+  	// arr.shift();
+  	// head.next = node;
+  	console.log(head);
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var sortList = function(head) {
+    let arr = [];
+    let loop = node => {
+        arr.push(node.val);
+        if(node.next !== null) {
+            loop(node.next);
+        }
+    }
+    loop(head);
+    arr = arr.sort((a, b) => {
+        return a - b;
+    });
+    let List = (cur) => {
+        let node = new ListNode(arr[0]);
+        cur.next = node;
+        arr.shift();
+        if (arr.length > 0) {
+            List(node);
+        }
+        return node;
+    }
+    return List(header);
+};
+
+console.log(sortList(head));
+	</script>
+</body>
+</html>
