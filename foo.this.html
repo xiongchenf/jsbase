@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Foo() {
+			console.log(this.a);
+		}
+
+		var a = 'a';
+
+		Foo();
+
+		let Obj = {
+			a: 'b',
+			foo: Foo
+		}
+
+		Obj.foo();
+
+		let c = new Foo();
+
+		c.a = 'c';
+
+		console.log([] == ![]);
+		console.log([] == 0)
+		console.log(![] == 0)
+		console.log(![])
+		console.log(![] + 1)
+		console.log([] + 1)
+	</script>
+</body>
+</html>
