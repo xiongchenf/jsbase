@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+	<p>输入: "abcabcbb"
+		输出: 3 
+		解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。</p>
+	<p>输入: "bbbbb"
+		输出: 1
+		解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。</p>
+	<script>
+		/**
+		 * @param {string} s
+		 * @return {number}
+		*/
+		var lengthOfLongestSubstring = function(s) {
+			let max = 0,
+				array = s.split(''),
+				res = [];
+			let inArray = (a, val) => {
+				let status = false;
+				a.map(v => {
+					if (v === val) {
+						status = true;
+					}
+				});
+				return status;
+			}
+
+			let Map = arr => {
+				for (let i = 0, l = arr.length; i < l; i++) {
+					if (inArray(res, arr[i])) {
+						if (max < res.length) { 
+							max = res.length;
+						}
+						res = [];
+						arr.shift();
+						Map(arr);
+						break;
+					} else {
+						res.push(arr[i]);
+					}
+				}
+			}
+			Map(array);
+			return max > res.length ? max : res.length;
+		};
+
+		lengthOfLongestSubstring(' ');
+	</script>
+</body>
+</html>
