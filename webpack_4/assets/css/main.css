@@ -1,0 +1,17 @@
+body, html {
+    font-size: 14px;
+    font-family: 'Miscrosoft YaHei', 'Arial Narrow', Arial, sans-serif;
+    color: #333;
+    text-size-adjust: 100%;
+}
+
+body, html, div, a, span, p, img, ul, li, table, tr, th, td, h1, h2, h3, h4, h5, h6, header, footer, section, article, aside, nav {
+    margin: 0;
+    padding: 0;
+}
+
+a, a:hover, a:visited {
+    text-decoration: none;
+    color: #333;
+}
+
