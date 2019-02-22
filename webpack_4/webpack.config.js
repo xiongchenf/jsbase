@@ -1,59 +1,47 @@
-const path = require('path')
-const UglifyPlugin = require('uglifyjs-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
+const webpack = require('webpack');
+const htmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
-    // 输入
-    entry: './src/index.js',
-    // 输出
+    mode: "production",
+    devtool: "eval-source-map",
+    entry: __dirname + '/app/main.js',
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: __dirname + '/dist',
         filename: 'bundle.js'
     },
-    // loader
+    devServer: {
+        contentBase: './public',
+        port: 3000,
+        inline: true,
+        historyApiFallback: true
+    },
     module: {
-        rules: [
-            {
-                test: /\.(jsx|js)?/,
-                include: [
-                    path.resolve(__dirname, 'src')
-                ],
-                use: 'babel-loader'
+        rules: [{
+            test: /(\.js|\.jsx)$/,
+            use: {
+                loader: "babel-loader"
             },
-            {
-                test: /\.css$/,
-                include: [
-                  path.resolve(__dirname, 'src'),
-                ],
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader',
-                }),
-            },
-            {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    'file-loader'
-                ]
-             }
-        ]
+            exclude: /node_modules/
+        }, {
+            test: /(\.css)$/,
+            use: [
+                {
+                    loader: "style-loader"
+                }, {
+                    loader: "css-loader",
+                    options: {
+                        modules: true,
+                        localIdentName: "[name]_[local]--[hash:base64:5]"
+                    }
+                }, {
+                    loader: "postcss-loader"
+                }
+            ]
+        }]
     },
-    // 代码模块路径解析的配置
-    resolve: {
-        modules: [
-            'node_modules',
-            path.resolve(__dirname, 'src')
-        ],
-        extensions: [".wasm", ".mjs", ".js", ".json", ".jsx"]
-    },
-
-    // 插件
     plugins: [
-        new UglifyPlugin(),
-        new HtmlWebpackPlugin({
-            filename: 'dist/index.html', // 配置输出文件名和路径
-            template: 'assets/index.html', // 配置文件模板
-          })
+        new webpack.BannerPlugin(`837195936@qq.com ${new Date()}`),
+        new htmlWebpackPlugin({
+            template: __dirname + "/app/index.tpl.html"
+        })
     ]
 }
