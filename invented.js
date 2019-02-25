@@ -12,6 +12,9 @@ const mVue = (function() {
 	}
 
 	function initData(o) {
+		let a = 10,
+		b = 20;
+		let c = a * b;
 		for(let k in o) {
 			
 		}

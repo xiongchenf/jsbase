@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var b = 1;
+		function A() {
+			this.b = 2;
+		}
+		A.prototype.showb = function() {
+			console.log(b);
+		}
+		// A();
+		var a = new A();
+		a.showb(); // 1
+		var c = a.showb;
+		c();
+		// console.log(a); // {b: 2}
+		// console.log(this.a); // {b: 2}
+		// console.log(a.b) // 2
+		// console.log(this.a.b) // 2
+	</script>
+</body>
+</html>
