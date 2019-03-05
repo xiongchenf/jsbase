@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' contant='width=device-width, initial-scale=1.0'>
+	<title>Document</title>
+	<style>
+		img {
+			width: 200px;
+			height: auto;
+		}
+	</style>
+</head>
+<body>
+	<img src="./images/b0.jpg" alt="">
+	<div id="container">
+		<section>
+			<img src="./images/b0.jpg" alt="">
+			<p>11111</p>
+			<div clas='imgs'>
+				<p>2222</p>
+				<img src="./images/b0.jpg" alt="">
+				<img src="./images/b1.jpg" alt="">
+				<img id='compareImg' src="./images/b2.jpg" alt="">
+				<img src="./images/b3.jpg" alt="">
+				<img src="./images/b4.jpg" alt="">
+			</div>
+		</section>
+	</div>
+	<script>
+document.body.addEventListener('click', function(e) {
+let container = document.querySelector('#container');
+let compareImg = document.querySelector('#compareImg');
+let imgsInContainer = container.querySelectorAll('img');
+let isImgDom = e.target.tagName === 'IMG';
+let target = e.target;
+let isInContainer = selector(target.parentNode);
+if (isImgDom && isInContainer) {
+	let arrs = [].slice.call(imgsInContainer);
+	arrs.forEach(v => {
+		v.style.outline = '0'
+	});
+	if (target.parentNode === compareImg.parentNode) {
+		let children = [].slice.call(target.parentNode.children),
+			targetIndex = 0,
+			compareIndex = 0;
+			children.forEach((v, i) => {
+				if (v.tagName === 'IMG') {
+					if (v === target && target !== compareImg) {
+						targetIndex = i;
+					} else if (v === compareImg && target !== compareImg) {
+						compareIndex = i;
+					}
+				}
+			});
+			if (targetIndex < compareIndex) {
+				target.style.outline = '2px solid red'
+			} else  if (targetIndex > compareIndex){
+				target.style.outline = '2px solid green'
+			} else {
+				target.style.outline = '2px solid'
+			}
+	} else {
+		target.style.outline = '2px solid blue'
+	}
+};
+}, false);
+function selector(node) {
+	if (node.id == 'container') {
+		return true
+	} else {
+		if (node.tagName === 'BODY') {
+			return false
+		} else {
+			return selector(node.parentNode);
+		}
+	}
+}
+	</script>
+</body>
+</html>
