@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var a = 1;
+		let b = 1;
+		var num = '13764975430';
+		num = num.replace(/^[0-9]{3}(*)[0-9]{4}$/, '*');
+		alert(num);
+		function foo() {
+			var a = 3;
+			let b = 3;
+			a = 2;
+			b = 2;
+		}
+
+		foo();
+
+		console.log(a);
+		console.log(b);
+	</script>
+</body>
+</html>
