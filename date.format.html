@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	function formatTime(v) {
+      let time = v * 1000,
+        d = new Date(time),
+        year = d.getFullYear(),
+        month = d.getMonth() + 1,
+        day = d.getDate(),
+        hour = d.getHours(),
+        minutes = d.getMinutes();
+      return [year, month, day].map(v => addZero(v)).join('-') +' '+ [hour, minutes].map(v => addZero(v)).join(':');
+    }
+    function addZero(v) {
+    	v += "";
+		return v[1] === undefined ? "0" + v : v
+    }
+    console.log(formatTime(1553761620));
+	</script>
+</body>
+</html>
