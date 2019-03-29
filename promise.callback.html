@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var Loading = new Promise(function(res,rej) {
+				$.ajax({
+					success: function() {
+						res();
+					}
+				})
+			});
+
+		Loading.then(function() {
+			console.log(1)
+		}).then(function() {
+			setTimeout(function() {
+				console.log(2);
+			}, 500)
+		}).then(function() {
+			console.log(3);
+		})
+
+	</script>
+</body>
+</html>

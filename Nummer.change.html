@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	
+		var height = getBodyClientHeight();
+
+		timer = setInterval(function() {
+			var inHeight = getBodyClientHeight();
+			if (inHeight > height) {
+				// hide
+				clearInterval(timer);
+			}
+		}, 300);
+
+	</script>
+</body>
+</html>
