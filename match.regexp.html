@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var str= '/page/index?id=1';
+
+		var res = str.match(/.*?\/page\/(\w+)\?/)[1];
+
+		var reg = /(^[1-9]{1}[0-9]*$)|(^[0-9]*\.[0-9]{1,2}$)/;
+
+		var reg1 = /(^\d+$)|(^\d+\.(\d{1.2})$)/;
+
+		var reg3 = /^\d+($|(\.(\d{1,2})$))/;
+
+		var reg2 = /^d+(.d{1,2})/;
+
+		console.log(reg3.test(1))
+		console.log(reg3.test(1.1))
+		console.log(reg3.test(1.32))
+		console.log(reg3.test(-1))
+		console.log(reg3.test(1111.444))
+
+		console.log(res);
+	</script>
+</body>
+</html>
