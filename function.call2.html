@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		Function.prototype.call2 = function(context) {
+		    var context = context || window; //因为传进来的context有可能是null
+		    context.fn = this;
+		    var args = [];
+		    console.log(arguments)
+		    for (var i = 1; i < arguments.length; i++) {
+		        args.push("arguments[" + i + "]"); //不这么做的话 字符串的引号会被自动去掉 变成了变量 导致报错
+		    }
+		    console.log(args)
+		    args = args.join(",");
+
+		    var result = eval("context.fn(" + args + ")"); //相当于执行了context.fn(arguments[1], arguments[2]);
+
+		    delete context.fn;
+		    return result; //因为有可能this函数会有返回值return
+		}
+
+		Function.prototype.call3 = function(obj) {
+			return this.apply(obj, arguments);
+		}
+
+		function Foo(obj) {
+			this.name = obj.name;
+		}
+ 
+		Foo.prototype.getName = function() {
+			return this.name
+		}
+
+		var foo = new Foo({
+			name: 'foo'
+		});
+
+		var name = foo.getName.call2({
+			name: 'foo2'
+		});
+
+		console.log(name)
+
+	</script>
+</body>
+</html>
