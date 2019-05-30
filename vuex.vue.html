@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app"></div>
+	<script src="https://unpkg.com/vuex@3.0.1/dist/vuex.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script>
+		Vue.use(Vuex);
+
+		const store = new Vuex.Store({
+			state: {
+				name: ""
+			},
+			mutations: {
+				setName(state, name) {
+					state.name = name;
+				}
+			}
+		});
+
+		const vm = new Vue({
+			el: '#app',
+			store,
+			template: "<div>1</div>",
+			data: {},
+			mounted() {
+				console.log(this.$store);
+			}
+		})
+	</script>
+</body>
+</html>
