@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		Function.prototype.call2 =  function(obj, arr) {
+			var content = obj || window;
+			var args = [], result;
+			arr = arr || [];
+			content.fn = this;
+			for (var i = 0, l = arr.length; i < l; i++) {
+				args.push('arguments['+ i +']');
+			}
+			result = eval('content.fn('+ args +')');
+			delete content.fn;
+			return result;
+		}
+
+		Function.prototype.apply2 = function(obj, arr) {
+			var context = Object(obj) || window;
+			context.fn = this;
+			var result;
+			if (!arr) {
+				result = context.fn();
+			} else {
+				var args = [], 
+					arr = arr || [];
+				for (var i = 0, l = arr.length; i < l; i++) {
+					args.push("arguments["+ i +"]");
+				}
+				result = eval("context.fn("+ args +")");
+			}
+			delete context.fn;
+			return result;
+		}
+
+		Function.prototype.bind2 = function(obj, arr) {
+			var self = this;
+			return function() {
+				self.apply(obj, arr);
+			}
+		}
+
+		function newFactory(fn) {
+			var obj = new Object(),
+
+			Constructor = [].shift.call(arguments);
+
+			obj.__proto__ = Constructor.prototype;
+
+			var res = Constructor.apply(obj, arguments);
+
+			return typeof res === 'object' ? res || obj : obj;
+		}
+
+		function Bar(value, name) {
+			this.value = value;
+			this.name = name;
+			console.log(this);
+			console.log(this.name);
+		}
+		var obj = {
+			value: 1
+		}
+		Bar.call2(obj, 'keivn', 22);
+		Bar.apply2(obj, 'keivn', 22);
+
+		var bar = newFactory(Bar, 1, 'bear');
+
+	</script>
+</body>
+</html>
