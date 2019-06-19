@@ -44,7 +44,7 @@
 			}
 		}
 
-		function newFactory(fn) {
+		function newFactory() {
 			var obj = new Object(),
 
 			Constructor = [].shift.call(arguments);
@@ -65,10 +65,10 @@
 		var obj = {
 			value: 1
 		}
-		Bar.call2(obj, 'keivn', 22);
-		Bar.apply2(obj, 'keivn', 22);
+		Bar.call2(obj, 'keivn', 23);
+		// Bar.apply2(obj, 'keivn', 24);
 
-		var bar = newFactory(Bar, 1, 'bear');
+		// var bar = newFactory(Bar, 1, 'bear');
 
 	</script>
 </body>

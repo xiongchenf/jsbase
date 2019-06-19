@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+	/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function(nums1, nums2) {
+    let num = [...nums1, ...nums2];
+    num = num.sort();
+    let mid = num/2;
+    if (num % 2 === 0) {
+        return (num[mid-1] + num[mid])/2
+    } else {
+        return mid
+    }
+};
+</script>	
+</body>
+</html>

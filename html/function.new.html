@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function mNew() {
+			var obj = {},
+
+			Constructor = [].shift.call(arguments);
+
+			obj.__proto__ = Constructor.prototype;
+
+			var res = Constructor.apply(obj, arguments);
+
+			return typeof res === 'object' ? res || obj : obj;
+		}
+
+		function Person(name) {
+			this.name = name;
+			return null;
+		}
+
+		var p1 = new Person('bell');
+
+		console.log(p1);
+
+		var p2 = mNew(Person, 'bell');
+		console.log(p2);
+	</script>
+</body>
+</html>

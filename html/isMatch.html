@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {boolean}
+ */
+var isMatch = function(s, p) {
+    let status = true;
+    if (!s) return false;
+    if (!p) return true;
+    if (/\*/.test(p) && /\./.test(p)) {
+        
+    } else {
+        return s === p;
+    }
+    for (var i = 0, l = s.length;i < l; i++) {
+        for (var j = 0, q = p.length;j<q; j++) {
+            if (s[i] !== p[j]) {
+                if (!p[j+1]) {
+                    return false;
+                } else if (p[j+1] !== "*" || p[j+1] !== ".") {
+                    status = false;
+                }
+            }
+        }
+    }
+    return status;
+};
+
+console.log(isMatch('aa', 'a'));
+    </script>
+</body>
+</html>

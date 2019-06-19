@@ -26,9 +26,24 @@
 			el: '#app',
 			store,
 			template: "<div>1</div>",
-			data: {},
+			data: {
+				a: 0,
+				b: 0
+			},
 			mounted() {
-				console.log(this.$store);
+				setTimeout(() => {
+					this.a = ++this.a;
+				}, 2000);
+			},
+			watch: {
+				a(val) {
+					this.b = ++this.b;
+					return val;
+				},
+				b(val) {
+					this.a = ++this.a;
+					return val;
+				}
 			}
 		})
 	</script>

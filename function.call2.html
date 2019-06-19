@@ -10,7 +10,6 @@
 		    var context = context || window; //因为传进来的context有可能是null
 		    context.fn = this;
 		    var args = [];
-		    console.log(arguments)
 		    for (var i = 1; i < arguments.length; i++) {
 		        args.push("arguments[" + i + "]"); //不这么做的话 字符串的引号会被自动去掉 变成了变量 导致报错
 		    }
@@ -21,6 +20,19 @@
 
 		    delete context.fn;
 		    return result; //因为有可能this函数会有返回值return
+		}
+
+		Function.prototype.call3 = function(context) {
+			let args = [],
+				ctx = context || window;
+				ctx.fn = this;
+			for (var i = 0, l = arguments.length; i < l; i++) {
+				args.push("arguments["+ i +"]");
+			}
+			args = args.join(",");
+			var res = eval("ctx.fn("+ args +")");
+			delete ctx.fn;
+			return res;
 		}
 
 		Function.prototype.call3 = function(obj) {

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		Function.prototype.call2 = function() {
+			var context = [].shift.call(arguments) || window;
+			context.fn = this;
+			var arrs = [];
+			for (var i = 0, l = arguments.length; i < l; i++) {
+				arrs.push("arguments["+ i +"]");
+			}
+			var args = arrs.join(',');
+			var res = eval("context.fn("+ args +")");
+			delete context.fn;
+			return res;
+		}
+
+		function Person(name) {
+			this.name = name;
+		}
+
+		Person.prototype.setName = function(name) {
+			this.name = name;
+		}
+
+		var o = {
+			name: 'bear'
+		}
+
+		var p1 = new Person('bell');
+
+		console.log(p1.name);
+
+		p1.setName('kevin');
+
+		console.log(p1.name);
+
+		// p1.setName.call(o, 'xiong');
+
+		p1.setName.call2(o, 'bear');
+
+		console.log(p1);
+
+		console.log(o);
+
+	</script>
+</body>
+</html>

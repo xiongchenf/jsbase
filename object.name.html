@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var prefix = "bear_"
+
+		var myObj = {
+			[prefix + 'bar']: 123,
+			[Symbol(prefix)]: 123
+		}
+
+		console.log(myObj);
+
+		var arr = [1,2,3];
+
+		arr.bar = '123';
+
+		arr.length = 3;
+
+		arr.name = 'arr';
+
+		console.log(arr);
+
+		var mO = {
+
+		};
+
+		Object.defineProperty(mO, 'value', {
+			value: 2,
+			writable: true,
+			enumerable: true,
+			configurable: true
+		});
+
+		console.log(mO);
+	</script>
+</body>
+</html>

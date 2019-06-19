@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="ImageLoader.js"></script>
+</head>
+<body>
+	<script>
+		function mNew(ctx) {
+			let obj = Object.create(null),
+			Constructor = Array.prototype.shift.call(arguments);
+
+			obj.__proto__ = Constructor.prototype;
+
+			var res = Constructor.apply(obj, arguments);
+			
+			return typeof res === 'object' ? res : obj;
+		}
+	</script>
+</body>
+</html>

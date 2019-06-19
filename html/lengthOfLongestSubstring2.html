@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    let max = 0, res = [], arr = s.split('');
+    let Map = arr => {
+        for (let i = 0, l = arr.length; i < l; i++) {
+            if (res.includes(arr[i])) {
+                max = Math.max(max, res.length);
+                res = [];
+                arr.shift();
+                Map(arr);
+                break;
+            } else {
+                res.push(arr[i]);
+            }
+        }
+    }
+    Map(arr);
+    return Math.max(max, res.length);
+}
+
+console.log(lengthOfLongestSubstring("abcabcbb"))
+    </script>
+</body>
+</html>

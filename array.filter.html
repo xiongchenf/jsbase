@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>filter - some - every - find - findIndex</title>
+</head>
+<body>
+	<script>
+		let arr = [1,2,3,4,5,6,7];
+
+		let arr2 = [{"id":"1414","name":"人力资源从业资格证书"},{"id":"1413","name":"人力资源管理师证书"},{"id":"1420","name":"企业培训师证书"},{"id":"1416","name":"会计从业资格证书"},{"id":"1415","name":"注册会计师证书"},{"id":"1418","name":"网络安全工程师证书"},{"id":"1417","name":"计算机技术与软件专业技术资格证书"},{"id":"1419","name":"项目管理师证书"},{"id":"4595","name":"项目证书"}];
+
+		console.log(arr.filter(item => item%2 === 0));
+
+		console.log(arr2.filter(item => item.name.indexOf('人') !== -1));
+
+		console.log(arr.some(item => item % 7 === 0));
+
+		console.log(arr.every(item => item > 3));
+
+		console.log(arr.find(item => item % 3 === 0));
+
+		console.log(arr.findIndex(item => item > 3));
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function fb(num) {
+			if (num === 0) return 0;
+			if (num === 1 || num === 2) return 1;
+			return fb(num - 1) + fb(num - 2);
+		}
+
+		function cache(fn) {
+			let o = {};
+			return (args => o[args] || (o[args] = fn(args)));
+		}
+		const newFb = cache(n => {
+			if (n === 0) return 0;
+			if (n === 1 || n === 2) return 1;
+			return newFb(n - 1) + newFb(n - 2);
+		});
+		console.log(newFb(41));
+	</script>
+</body>
+</html>

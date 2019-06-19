@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		// foo();
+		// var a = true;
+		// if (a) {
+		// 	function foo() {
+		// 		console.log('a')
+		// 	}
+		// } else {
+		// 	console.log('b');
+		// }
+
+		// function foo() {
+		// 	var a = 0;
+		// 	function b() { console.log('b'); }
+		// }
+
+		// foo();
+
+		// b();
+
+		function mNew() {
+			var obj = Object.create(null),
+
+			Constructor = [].shift.call(arguments);
+
+			obj.__proto__ = Constructor.prototype;
+
+			console.log(arguments);
+
+			var res = Constructor.apply(obj, arguments);
+
+			return typeof res === 'object' ? res : obj;
+		}
+
+		Function.prototype.apply2 = function(ctx, args) {
+			var arr = [],
+			ctx = ctx || window;
+			ctx.fn = this;
+
+			for (var i = 0, l = args.length; i++) {
+				arr.push("args["+ i +"]");
+			}
+			arr = arr.join(',');
+			var res = eval("ctx.fn("+ arr +")");
+			
+			delete ctx.fn;
+			return res;
+		}
+
+		function Person(name) {
+			this.name = name;
+		}
+
+		var p1 = mNew(Person, 'bear');
+
+		console.log(p1);
+	</script>
+</body>
+</html>
