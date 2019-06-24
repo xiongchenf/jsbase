@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		let last = +new Date(), 
+			animId = null;
+		const roll = () => {
+			let now = +new Date(),
+			percent = now - last;
+			console.log(percent/1000);
+			if (now - last >= 1000) {
+				last = now;
+			}
+			animId = window.requestAnimationFrame(roll);
+		}
+		roll();
+	</script>
+</body>
+</html>

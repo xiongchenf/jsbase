@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		(function() {
+			  // 1
+			const div = document.createElement('div');
+			div.style.width = "150px";
+			div.style.height = "300px";
+			div.style.border = "1px solid #333";
+			document.body.appendChild(div);
+			  // 2
+			div.style.background = "linear-gradient(to bottom right, red, blue)";
+			 let last = +new Date();
+			const roll = () => {
+			   let now = +new Date(),
+			       dist = now - last,
+			       percent = dist / 1000,
+			       red = 255 - 255 * percent,
+			       blue = 255 * percent;
+			   if (dist >= 1000) {
+			     last = now;
+			   }
+			    // 3
+			   div.style.background = "linear-gradient(to bottom right, rgb("+ red +",0, "+ blue +"), rgb("+ blue +",0, "+ red +")";
+			   window.requestAnimationFrame(roll);
+			 }
+			 roll();
+			})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			const data = [
+				{
+					id: '1',
+					name: 'test1',
+					children: [
+						{
+							id: '11',
+							name: 'test11',
+							children: [
+								{
+									id: '111',
+									name: 'test111',
+								},
+								{
+									id: '112',
+									name: 'test112',
+								},
+							],
+						},
+						{
+							id: '12',
+							name: 'test12',
+							children: [
+								{
+									id: '121',
+									name: 'test121',
+								},
+								{
+									id: '122',
+									name: 'test122',
+								},
+							],
+						},
+					],
+				},
+			];
+
+			const searchParentsId = value => {
+                let res = [];
+                const dfs = (arr, res) => {
+                    for (let item of arr) {
+                        if (item.id == value) {
+                            res.push(value);
+                            return res;
+                        } else if (item.children) {
+                            res.push(item.id);
+                            dfs(item.children, res);
+                        } else {
+                            res = [];
+                        }
+                    }
+                }
+                dfs(data, res);
+                return res;
+            };
+
+			console.log(searchParentsId(112)); /// 1, 11, 112
+		</script>
+	</body>
+</html>

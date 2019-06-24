@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app">
+			<span id="span" :name="name" @click="click"> {{ msg }} - {{ name }} </span>
+			<input type="text" />
+		</div>
+		<script>
+			var app = document.querySelector('#app');
+			var span = document.querySelector('#span');
+			var input = document.querySelector('input');
+			var reg = /\{\{(.*)\}\}/;
+			var text = span.textContent;
+			var res = reg.test(text);
+			console.log(RegExp.$0);
+			console.log(RegExp.$1);
+			console.log(RegExp.$2);
+			console.log(RegExp.$3);
+			console.log(RegExp.$4);
+			console.log(app.nodeType);
+			console.log(input.nodeType);
+			console.log(input.attributes);
+			var nodeAttrs = span.attributes;
+			[].slice.call(nodeAttrs).forEach(atrr => {
+				console.log(atrr.name);
+			});
+
+			// function getPersonInfo(one, two, three) {
+			// 	console.log(one);
+			// 	console.log(two);
+			// 	console.log(three);
+			// }
+
+			// const person = 'Lydia';
+			// const age = 21;
+
+			// getPersonInfo`${person} is ${age} years old`;
+		</script>
+	</body>
+</html>
