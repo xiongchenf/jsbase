@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function call2(ctx) {
+			var context = ctx || window;
+			var arr = [];
+			context.fn = [].shift.call(arguments);
+			for (var i = 0, l = arguments.length; i < l; i++) {
+				][]
+			}
+		}
+		function deepCopy(obj) {
+			var res = null;
+			if (typeof obj === 'object') {
+				res = obj.constructor === Array ? []: {};
+				for (var i in obj) {
+					obj[i] = typeof obj[i] === 'object' ? deepCopy(obj[i]) : obj[i];
+				}
+				return res;
+			} else {
+				res = obj
+			}
+			return res;
+		}
+		function Person(name) {
+			this.name = name;
+		}
+		function Child(name, parentName) {
+			Person.call(this, parentName);
+			this.name = name;
+		}
+		function create(o) {
+			function F() {};
+			F.prototype = o;
+			return new F();
+		}
+
+		Child.prototype = create(Person.prototype);
+		Child.prototype.Constructor = Child;
+
+		function new2() {
+			var obj = Object.create(null),
+			Constructor = [].shift.call(arguments);
+			obj.__proto__ = Constructor.prototype;
+			var res = Constructor.apply(obj, arguments);
+			return typeof res === 'object' ? res : obj;
+		}
+		function curry(fn, args) {
+		    var length = fn.length;
+		    var args = args || [];
+		    return function() {
+		        newArgs = args.concat(Array.prototype.slice.call(arguments));
+		        if (newArgs.length < length) {
+		            return curry.call(this,fn,newArgs);
+		        }else{
+		            return fn.apply(this,newArgs);
+		        }
+		    }
+		}
+
+		function multiFn(a, b, c) {
+		    return a * b * c;
+		}
+
+		var multi = curry(multiFn);
+
+		console.log(multi(2)(3)(4));
+		// console.log(multi(2,3,4));
+		// console.log(multi(2)(3,4));
+		// console.log(multi(2,3)(4));
+	</script>
+</body>
+</html>
