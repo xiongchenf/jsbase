@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<script src="./opencv.js"></script>
+	</head>
+	<body>
+		<img src="https://img.caibeitv.com/cube/image/206109-206030631562122197067.jpg-cube" id="logo" alt="" />
+		<input type="file" onchange="upload(event)" />
+		<canvas id="canvas" width="800" height="600"></canvas>
+		<button onclick="toBlack()">黑白</button>
+		<button onclick="reserve()">反色</button>
+		<script>
+			let canvas = document.querySelector('#canvas'),
+				logo = document.querySelector('#logo'),
+				change = document.querySelector('#change'),
+				ctx = canvas.getContext('2d'),
+				imgData = [],
+				file = {};
+			// 图片像素的二维数组
+			let points = [];
+			var img = new Image();
+			img.crossOrigin = 'anonymous';
+			img.src = logo.src;
+			img.onload = () => {
+				ctx.drawImage(img, 0, 0);
+				// 获取图片每一像素的色值,将获取到一个图片的全部像素点的一维数组
+				var imgdata = ctx.getImageData(0, 0, 800, 600);
+				imgData = imgdata;
+			};
+
+			function toBlack() {
+				for (var i = 0; i < imgData.data.length - 4; i = i + 4) {
+					var r = imgData.data[i];
+					var g = imgData.data[i + 1];
+					var b = imgData.data[i + 2];
+					var rgb = 0.3 * r + 0.59 * g + 0.11 * b;
+					imgData.data[i] = rgb;
+					imgData.data[i + 1] = rgb;
+					imgData.data[i + 2] = rgb;
+				}
+				ctx.putImageData(imgData, 0, 0);
+			}
+
+			function reserve() {
+				let len = imgData.data.length / 4;
+				for (var i = 0; i < len; i++) {
+					var r = 255 - imgData.data[i * 4];
+					var g = 255 - imgData.data[i * 4 + 1];
+					var b = 255 - imgData.data[i * 4 + 2];
+					var rgb = (r + g + b) / 3;
+					imgData.data[i * 4] = r;
+					imgData.data[i * 4 + 1] = g;
+					imgData.data[i * 4 + 2] = b;
+				}
+				ctx.putImageData(imgData, 0, 0);
+			}
+
+			function upload(e) {
+				var reader = new FileReader();
+				let files = e.target.files[0];
+				reader.readAsDataURL(files);
+				// 读取图片
+				reader.onload = () => {
+					img.src = reader.result;
+					img.onload = () => {
+						ctx.drawImage(img, 0, 0, 482, 708);
+						// 获取图片每一像素的色值,将获取到一个图片的全部像素点的一维数组
+						var imgdata = ctx.getImageData(0, 0, 800, 600);
+						// 转为二维数组
+						imgData = imgdata;
+					};
+				};
+			}
+
+			function bin() {
+				let mat = cv.imread(img);
+				mat = bilateralFilter(mat, 4, 3);
+				console.log(mat);
+				ctx.putImageData(mat.data, 0, 0);
+			}
+			// cv.imshow('canvasOutput', mat);
+			// mat.delete();
+			function bilateralFilter(image, value1, value2) {
+				let dst = new cv.Mat();
+				if (value1 == null || value1 == undefined) value1 = 3; //磨皮系数
+				if (value2 == null || value2 == undefined) value2 = 1; //细节系数 0.5 - 2
+
+				var dx = value1 * 5; //双边滤波参数
+				var fc = value1 * 12.5; //参数
+				var p = 0.1; //透明度
+
+				let temp1 = new cv.Mat(),
+					temp2 = new cv.Mat(),
+					temp3 = new cv.Mat(),
+					temp4 = new cv.Mat();
+
+				cv.cvtColor(image, image, cv.COLOR_RGBA2RGB, 0);
+
+				cv.bilateralFilter(image, temp1, dx, fc, fc); //bilateralFilter(Src)
+
+				let temp22 = new cv.Mat();
+				cv.subtract(temp1, image, temp22); //bilateralFilter(Src) - Src
+
+				cv.add(
+					temp22,
+					new cv.Mat(image.rows, image.cols, image.type(), new cv.Scalar(128, 128, 128, 128)),
+					temp2
+				); //bilateralFilter(Src) - Src + 128
+
+				cv.GaussianBlur(temp2, temp3, new cv.Size(2 * value2 - 1, 2 * value2 - 1), 0, 0);
+				//2 * GuassBlur(bilateralFilter(Src) - Src + 128) - 1
+
+				let temp44 = new cv.Mat();
+				temp3.convertTo(temp44, temp3.type(), 2, -255);
+				//2 * GuassBlur(bilateralFilter(Src) - Src + 128) - 256
+
+				cv.add(image, temp44, temp4);
+				cv.addWeighted(image, p, temp4, 1 - p, 0.0, dst);
+				//Src * (100 - Opacity)
+
+				cv.add(dst, new cv.Mat(image.rows, image.cols, image.type(), new cv.Scalar(10, 10, 10, 0)), dst);
+				//(Src * (100 - Opacity) + (Src + 2 * GuassBlur(bilateralFilter(Src) - Src + 128) - 256) * Opacity) /100
+
+				return dst;
+			}
+		</script>
+	</body>
+</html>
